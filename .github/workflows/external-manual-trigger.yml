@@ -17,7 +17,7 @@
 ## More details on https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch
 ## To create a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 
-name: External Trigger Example
+name: External Trigger Example 
 on:
   repository_dispatch:
     types:
