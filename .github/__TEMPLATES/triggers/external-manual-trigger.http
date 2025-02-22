@@ -1,5 +1,5 @@
 @repo = matleclaire/gh-actions-example
-@GITHUB_TOKEN = "your-token"
+@GITHUB_TOKEN = your_token
 
 POST https://api.github.com/repos/{{repo}}/dispatches
 Accept: application/vnd.github+json
