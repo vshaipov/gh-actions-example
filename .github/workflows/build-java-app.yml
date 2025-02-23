@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: /java-app
+        working-directory: java-app
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
