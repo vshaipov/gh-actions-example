@@ -1,5 +1,6 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+# This workflow will build a Java project with Maven
+##
+## More details on https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-java-with-maven
 
 name: Build a Java Application
 
@@ -11,10 +12,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     defaults:
       run:
+        # Set the working directory to the java-app directory
+        # works only for the shell.
         working-directory: java-app
     steps:
     - uses: actions/checkout@v4
@@ -27,8 +29,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - run: mkdir staging && cp target/*.jar staging
+    # Upload the build artifact
     - uses: actions/upload-artifact@v4
       with:
         name: Package
         path: java-app/staging
-
