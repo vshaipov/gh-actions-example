@@ -1,0 +1,28 @@
+# This workflow will print a variable at each level of the workflow, job, and step.
+name: Debug the Mess
+
+on: workflow_dispatch
+
+env:
+  MY_VAR: "Workflow Level Value"
+
+jobs:
+  debug-vars:
+    runs-on: ubuntu-latest
+    env:
+      MY_VAR: "Job Level Value"
+
+    steps:
+      - name: Define a Step-Level Variable
+        env:
+          MY_VAR: "Step Level Value"
+        run: echo "MY_VAR=$MY_VAR"
+
+      - name: Override with GITHUB_ENV
+        run: |
+          echo "MY_VAR=Overridden via GITHUB_ENV" >> $GITHUB_ENV
+
+      - name: Print the final value
+        run:
+          # What is the value of MY_VAR at this point?
+          echo "Final MY_VAR value is: $MY_VAR"
