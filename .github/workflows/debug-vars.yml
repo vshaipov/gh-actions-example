@@ -1,35 +1,26 @@
-# This workflow will print a variable at each level of the workflow, job, and step.
-name: Precedence Puzzle
+name: Debug the Mess
 
 on: workflow_dispatch
 
 env:
-  GREETING: "Hello from workflow"
+  MY_VAR: "Workflow Level Value"
 
 jobs:
-  check-precedence:
+  debug-vars:
     runs-on: ubuntu-latest
     env:
-      GREETING: "Hello from job"
+      MY_VAR: "Job Level Value"
 
     steps:
-      - name: Step 1 - Local override
-        run: |
-          echo "GREETING in step 1: $GREETING"
+      - name: Define a Step-Level Variable
         env:
-          GREETING: "Hello from step"
+          MY_VAR: "Step Level Value"
+        run: echo "MY_VAR=$MY_VAR"
 
-      - name: Step 2 - Use GitHub context
+      - name: Override with GITHUB_ENV
         run: |
-          echo "GREETING in step 2: ${{ env.GREETING }}"
+          echo "MY_VAR=Overridden via GITHUB_ENV" >> $GITHUB_ENV
 
-      - name: Step 3 - Set with GITHUB_ENV
-        run: echo "GREETING=Hello from GITHUB_ENV" >> $GITHUB_ENV
-
-      - name: Step 4 - Evaluate in shell
-        run: |
-          echo "GREETING in step 4 (shell): $GREETING"
-
-      - name: Step 5 - Evaluate in GitHub context
-        run: |
-          echo "GREETING in step 5 (context): ${{ env.GREETING }}"
+      - name: Print the final value
+        run:
+          echo "Final MY_VAR value is: $MY_VAR"
