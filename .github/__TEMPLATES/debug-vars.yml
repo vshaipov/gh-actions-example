@@ -1,3 +1,5 @@
+# This workflow prints the value of a variable at different levels (workflow, job, and step).
+
 name: Debug the Mess
 on: workflow_dispatch
 
