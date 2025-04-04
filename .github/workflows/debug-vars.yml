@@ -13,14 +13,13 @@ jobs:
 
     steps:
       - name: Define a Step-Level Variable
+        run: echo "MY_VAR=$MY_VAR"
         env:
           MY_VAR: "Step Level Value"
-        run: echo "MY_VAR=$MY_VAR"
 
       - name: Override with GITHUB_ENV
         run: |
           echo "MY_VAR=Overridden via GITHUB_ENV" >> $GITHUB_ENV
 
       - name: Print the final value
-        run:
-          echo "Final MY_VAR value is: $MY_VAR"
+        run: echo "Final MY_VAR value is $MY_VAR"
