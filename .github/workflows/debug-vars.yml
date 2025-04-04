@@ -21,8 +21,9 @@ jobs:
       - name: Override with GITHUB_ENV
         run: |
           echo "MY_VAR=Overridden via GITHUB_ENV" >> $GITHUB_ENV
+        shell: bash
 
       - name: Print the final value
         # What is the value of MY_VAR at this point?
         run: |
-          echo "Final MY_VAR value is: ${{ env.MY_VAR }}"
+          echo "Final MY_VAR value is: $MY_VAR"
