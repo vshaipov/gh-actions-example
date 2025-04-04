@@ -1,38 +1,25 @@
-name: Variable Precedence Puzzle
+name: Debug the Mess
 
-on: [push]
+on: workflow_dispatch
+
+env:
+  MY_VAR: "Workflow Level Value"
 
 jobs:
-  puzzle:
+  debug-vars:
     runs-on: ubuntu-latest
-
     env:
-      GLOBAL_VAR: "I am global"
-      SHARED_VAR: "Global shared"
+      MY_VAR: "Job Level Value"
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set step-level variable
+      - name: Define a Step-Level Variable
         env:
-          STEP_VAR: "I am step-level"
-          SHARED_VAR: "Step-level shared"
-        run: echo "Step-Level Variable $STEP_VAR"
+          MY_VAR: "Step Level Value"
+        run: echo "MY_VAR=$MY_VAR"
 
-      - name: Set environment variable
-        run: echo "ENV_VAR=I am environment" >> $GITHUB_ENV
-
-      - name: Override global variable
-        run: echo "GLOBAL_VAR=I am overridden" >> $GITHUB_ENV
-
-      - name: Print variables
+      - name: Override with GITHUB_ENV
         run: |
-          echo "Global Variable: $GLOBAL_VAR"
-          echo "Environment Variable: $ENV_VAR"
-          echo "Shared Variable: $SHARED_VAR"
+          echo "MY_VAR=Overridden via GITHUB_ENV" >> $GITHUB_ENV
 
-      - name: Use secret
-        run: echo "Secret Value ${{ secrets.MY_SECRET }}"
-        env:
-          MY_SECRET: "Not the real secret"
+      - name: Print the final value ${{env.MY_VAR}}
+        run: echo "Final MY_VAR value is $MY_VAR"
