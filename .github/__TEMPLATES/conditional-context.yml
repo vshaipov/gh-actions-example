@@ -16,7 +16,7 @@ jobs:
       - name: Always runs
         run: echo "Triggered by ${{ github.event_name }}"
 
-      - name: Runs on PR from dev branch
+      - name: Runs on opened PR
         if: github.event_name == 'pull_request' && github.event.action == 'opened'
         run: echo "This is a pull request which has been opened"
 
