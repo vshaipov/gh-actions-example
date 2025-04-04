@@ -25,4 +25,4 @@ jobs:
       - name: Print the final value
         # What is the value of MY_VAR at this point?
         run: |
-          echo "Final MY_VAR value is: $MY_VAR"
+          echo "Final MY_VAR value is: ${{ env.MY_VAR }}"
