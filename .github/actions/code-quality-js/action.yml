@@ -15,24 +15,25 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: cd ${{ inputs.working-directory }}
-      shell: bash
-
     - name: Install Dependencies
       run: npm install
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Run Linting
       id: run_lint
       run: |
         npx eslint . --format json > lint-report.json
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Run Unit Tests (Optional)
       if: ${{ inputs.skip-tests == 'false' }}
       run: npm test
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Set Lint Report Output
       run: echo "lint-report=$(cat lint-report.json)" >> $GITHUB_OUTPUT
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
