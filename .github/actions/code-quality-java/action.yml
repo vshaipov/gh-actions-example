@@ -10,7 +10,7 @@ inputs:
     default: ''
 outputs:
   checkstyle-report:
-    description: "The Checkstyle report in XML format."
+    description: "The Checkstyle report path"
     value: ${{ steps.checkstyle.outputs.checkstyle-report }}
 
 runs:
@@ -31,7 +31,7 @@ runs:
       id: checkstyle
       run: |
         if [ -f target/checkstyle-result.xml ]; then
-          echo "checkstyle-report=$(cat target/checkstyle-result.xml)" >> $GITHUB_OUTPUT
+          echo "checkstyle-report=${{ inputs.working-directory }}/target/site" >> $GITHUB_OUTPUT
         else
           echo "checkstyle-report=No report generated" >> $GITHUB_OUTPUT
         fi
