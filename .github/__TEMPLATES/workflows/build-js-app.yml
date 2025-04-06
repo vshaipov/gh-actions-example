@@ -7,7 +7,8 @@ name: Build a Javascript Application
 on:
   push:
     branches: [ "main" ]
-
+    paths:
+      - js-app/**
 jobs:
   build:
     runs-on: ubuntu-latest
