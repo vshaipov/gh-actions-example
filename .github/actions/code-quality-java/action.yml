@@ -30,7 +30,7 @@ runs:
     - name: Set Checkstyle Report Output
       id: checkstyle
       run: |
-        if [ -f target/site/checkstyle-result.xml ]; then
+        if [ -f target/checkstyle-result.xml ]; then
           echo "checkstyle-report=$(cat target/checkstyle-result.xml)" >> $GITHUB_OUTPUT
         else
           echo "checkstyle-report=No report generated" >> $GITHUB_OUTPUT
