@@ -11,27 +11,28 @@ inputs:
 outputs:
   lint-report:
     description: "The JSON lint report output from ESLint."
-defaults:
-    run:
-      # Set the default shell to bash for all steps in this action
-      # This is useful if you want to use bash-specific features in your scripts
-      shell: bash
-      working-directory: ${{ inputs.working-directory }}
+
 runs:
   using: "composite"
-
   steps:
+    - run: cd ${{ inputs.working-directory }}
+      shell: bash
+      
     - name: Install Dependencies
       run: npm install
+      shell: bash
 
     - name: Run Linting
       id: run_lint
       run: |
         npx eslint . --format json > lint-report.json
+      shell: bash
 
     - name: Run Unit Tests (Optional)
       if: ${{ inputs.skip-tests == 'false' }}
       run: npm test
+      shell: bash
 
     - name: Set Lint Report Output
       run: echo "lint-report=$(cat lint-report.json)" >> $GITHUB_OUTPUT
+      shell: bash
