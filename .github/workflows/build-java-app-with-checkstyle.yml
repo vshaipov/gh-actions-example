@@ -40,11 +40,5 @@ jobs:
     needs: build
     steps:
       - name: export the report
-        uses: actions/upload-artifact@v4
-        with:
-          name: Package
-          path: ${{ needs.build.outputs.checkstyle-report }}
-      - name: Publish to GitHub Packages
-        run: mvn --batch-mode deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "The output is $(echo ${{ needs.build.outputs.checkstyle-report }} | base64 --decode)"
