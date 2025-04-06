@@ -2,7 +2,7 @@
 ##
 ## More details on https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-java-with-maven
 
-name: Build a Java Application
+name: Build a Java Application with checkstyle
 
 on:
   push:
