@@ -1,0 +1,35 @@
+name: "Code Quality Composite Action JS"
+description: "A composite action to run linting and static code analysis for a JavaScript project."
+inputs:
+  skip-tests:
+    description: "skip tests"
+    required: false
+    default: false
+outputs:
+  lint-report:
+    description: "The JSON lint report output from ESLint."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: npm install
+      shell: bash
+
+    - name: Run Linting
+      id: run_lint
+      run: |
+        npx eslint . --format json > lint-report.json
+      shell: bash
+
+    - name: Run Unit Tests (Optional)
+      if: ${{ inputs.skip-tests == 'false' }}
+      run: npm test
+      shell: bash
+
+    - name: Set Lint Report Output
+      run: echo "lint-report=$(cat lint-report.json)" >> $GITHUB_OUTPUT
+      shell: bash

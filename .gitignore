@@ -1,2 +1,5 @@
 
 .idea/
+/js-app/node_modules/
+
+js-app/.tool-versions

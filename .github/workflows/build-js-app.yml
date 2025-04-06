@@ -1,0 +1,28 @@
+# This workflow will build a Java project with NPM
+##
+## More details on https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-java-with-maven
+
+name: Build a Javascript Application
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    defaults:
+      run:
+        # Set the working directory to the js-app directory
+        # works only for the shell.
+        working-directory: js-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - uses: ./.github/actions/code-quality-js
+        with:
+          skip-tests: true
