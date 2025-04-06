@@ -11,11 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        # Set the working directory to the js-app directory
-        # works only for the shell.
-        working-directory: js-app
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,4 +20,4 @@ jobs:
         uses: ./.github/actions/code-quality-js
         with:
           skip-tests: true
-          working-directory: ${{ github.workspace }}
+          working-directory: js-app

@@ -17,7 +17,7 @@ runs:
   steps:
     - run: cd ${{ inputs.working-directory }}
       shell: bash
-      
+
     - name: Install Dependencies
       run: npm install
       shell: bash
