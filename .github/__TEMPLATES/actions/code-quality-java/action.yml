@@ -31,7 +31,7 @@ runs:
       id: checkstyle
       run: |
         if [ -f target/checkstyle-result.xml ]; then
-          echo "checkstyle-report=$(cat target/checkstyle-result.xml| base64 -w 0)" >> $GITHUB_OUTPUT
+          echo "checkstyle-report=$(cat target/checkstyle-result.xml | base64 -w 0)" >> $GITHUB_OUTPUT
         else
           echo "checkstyle-report=No report generated" >> $GITHUB_OUTPUT
         fi

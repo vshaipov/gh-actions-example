@@ -41,4 +41,6 @@ jobs:
     steps:
       - name: export the report
         run: |
-          echo "The output is $(echo ${{ needs.build.outputs.checkstyle-report }} | base64 --decode)"
+          echo "The output is $(echo $ENCODED_REPORT | base64 --decode)"
+        env:
+          ENCODED_REPORT: ${{ needs.build.outputs.checkstyle-report }}
