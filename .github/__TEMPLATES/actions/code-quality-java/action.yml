@@ -1,0 +1,39 @@
+name: "Code Quality Composite Action (Java)"
+description: "A composite action to run Checkstyle analysis and unit tests for a Java project."
+inputs:
+  skip-tests:
+    description: "skip tests"
+    required: false
+    default: false
+  working-directory:
+    required: false
+    default: ''
+outputs:
+  checkstyle-report:
+    description: "The Checkstyle report in XML format."
+    value: ${{ steps.checkstyle.outputs.checkstyle-report }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Checkstyle Analysis
+      run: mvn checkstyle:checkstyle
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Run Unit Tests
+      if: ${{ inputs.skip-tests == 'false' }}
+      run: mvn test
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Set Checkstyle Report Output
+      id: checkstyle
+      run: |
+        if [ -f target/site/checkstyle-result.xml ]; then
+          echo "checkstyle-report=$(cat target/checkstyle-result.xml)" >> $GITHUB_OUTPUT
+        else
+          echo "checkstyle-report=No report generated" >> $GITHUB_OUTPUT
+        fi
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
