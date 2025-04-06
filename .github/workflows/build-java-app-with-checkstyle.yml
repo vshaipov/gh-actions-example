@@ -31,6 +31,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Run Code Quality Action
+      id: checkstyle
       uses: ./.github/actions/code-quality-java
       with:
         working-directory: java-app
