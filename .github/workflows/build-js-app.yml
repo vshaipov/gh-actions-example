@@ -11,8 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
     defaults:
       run:
         # Set the working directory to the js-app directory
@@ -26,3 +24,4 @@ jobs:
       - uses: ./.github/actions/code-quality-js
         with:
           skip-tests: true
+        working-directory: js-app
