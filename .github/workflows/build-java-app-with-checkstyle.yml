@@ -22,8 +22,6 @@ jobs:
         # Set the working directory to the java-app directory
         # works only for the shell.
         working-directory: java-app
-    outputs:
-        checkstyle-report: ${{ steps.checkstyle.outputs.checkstyle-report }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
