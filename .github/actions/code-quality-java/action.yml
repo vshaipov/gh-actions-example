@@ -20,7 +20,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: checkstyle-report
-        path: ${{ inputs.working-directory != '' && format('{0}/target/checkstyle/*', inputs.working-directory) || 'target/checkstyle/*' }}
+        path: ${{ inputs.working-directory != '' && format('{0}/target//checkstyle-result.xml', inputs.working-directory) || 'target/checkstyle-result.xml' }}
         retention-days: 15
     - name: Run Unit Tests
       if: ${{ inputs.skip-tests == 'false' }}
