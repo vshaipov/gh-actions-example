@@ -16,6 +16,11 @@ jobs:
     permissions:
       contents: read
       packages: write
+    defaults:
+      run:
+        # Set the working directory to the java-app directory
+        # works only for the shell.
+        working-directory: js-app
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
