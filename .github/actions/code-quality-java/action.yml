@@ -18,10 +18,9 @@ runs:
       working-directory: ${{ inputs.working-directory }}
     - name: Upload Checkstyle Report
       uses: actions/upload-artifact@v4
-      working-directory: ${{ inputs.working-directory }}
       with:
         name: checkstyle-report
-        path: target/checkstyle/*
+        path: ${{ inputs.working-directory != '' && format('{0}/target/checkstyle/*', inputs.working-directory) || 'target/checkstyle/*' }}
         retention-days: 15
     - name: Run Unit Tests
       if: ${{ inputs.skip-tests == 'false' }}
