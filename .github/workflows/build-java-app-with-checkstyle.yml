@@ -37,12 +37,3 @@ jobs:
       uses: ./.github/actions/code-quality-java
       with:
         working-directory: java-app
-  log-output:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: export the report
-        run: |
-          echo "The output is $(echo $ENCODED_REPORT | base64 --decode)"
-        env:
-          ENCODED_REPORT: ${{ needs.build.outputs.checkstyle-report }}
