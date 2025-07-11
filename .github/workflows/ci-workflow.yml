@@ -19,7 +19,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: build
-    if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/bugfix/')
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/bugfix/')
     steps:
       - name: Run Tests
         run: echo "✅ Testing on ${{ github.ref }}"
@@ -32,9 +32,18 @@ jobs:
       - name: Run Bugfix Validation
         run: echo "🕵️ Bugfix validation for ${{ github.ref }}"
 
+  cve-scan:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: CVE Scan
+        run: |
+          echo "🛡️ Scanning dependencies for vulnerabilities..."
+        
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [cve-scan]
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Deploy
