@@ -18,21 +18,24 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'feature/') || github.ref == 'refs/heads/main'
+    needs: build
+    if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/bugfix/')
     steps:
       - name: Run Tests
         run: echo "✅ Testing on ${{ github.ref }}"
 
   bugfix-check:
     runs-on: ubuntu-latest
-    if: github.ref == 'bugfix/*'
+    needs: build
+    if: startsWith(github.ref, 'refs/heads/bugfix/')
     steps:
-      - name: Run special bugfix check
-        run: echo "🕵️ Bugfix validation"
+      - name: Run Bugfix Validation
+        run: echo "🕵️ Bugfix validation for ${{ github.ref }}"
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [build, test]
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Deploy
-        run: echo "🚀 Deploying ${{ github.ref }}"
+        run: echo "🚀 Deploying tag ${{ github.ref }}"
