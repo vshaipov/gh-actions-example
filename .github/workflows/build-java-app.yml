@@ -5,6 +5,7 @@
 name: Build a Java Application
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
     paths:
