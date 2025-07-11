@@ -1,0 +1,38 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: echo "🛠️ Building the project..."
+
+  test:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'feature/') || github.ref == 'refs/heads/main'
+    steps:
+      - name: Run Tests
+        run: echo "✅ Testing on ${{ github.ref }}"
+
+  bugfix-check:
+    runs-on: ubuntu-latest
+    if: github.ref == 'bugfix/*'
+    steps:
+      - name: Run special bugfix check
+        run: echo "🕵️ Bugfix validation"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Deploy
+        run: echo "🚀 Deploying ${{ github.ref }}"
