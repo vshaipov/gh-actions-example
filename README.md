@@ -1,4 +1,4 @@
-# GitHub Actions Example
+# GitHub Actions Example.
 
 This repository demonstrates the use of GitHub Actions for automating workflows.
 
